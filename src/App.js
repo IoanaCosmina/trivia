@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import './App.css';
 import Category from './components/Category';
 import Score from './components/Score';
@@ -7,23 +7,26 @@ import Result from './components/Result';
 
 function App() {
   const [question, setQuestion] = useState(null);
-  useEffect(() => {
-    getQuestion();
-  }, []);
+  const [selectedCategory, setSelectedCategory] = useState('any');
 
-  function getQuestion() {
-    const url = 'https://opentdb.com/api.php?amount=1';
+  const getQuestion = useCallback(() => {
+    let url = 'https://opentdb.com/api.php?amount=1';
+    if (selectedCategory !== 'any') url += `&category=${selectedCategory}`;
 
     fetch(url)
       .then(res => res.json())
       .then((data) => setQuestion(data.results[0]));
-  }
+  }, [selectedCategory]);
+
+  useEffect(() => {
+    getQuestion();
+  }, [getQuestion, selectedCategory]);
 
   return (
     <div className="app">
       {/* <Result /> */}
       <div className="question-header">
-        <Category />
+        <Category category={selectedCategory} chooseCategory={setSelectedCategory} />
         <Score />
       </div>
       <div className="question-main">

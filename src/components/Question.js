@@ -3,7 +3,6 @@ import shuffle from 'lodash.shuffle';
 
 function Question({ question }) {
     const answers = shuffle([...question.incorrect_answers, question.correct_answer]);
-    console.log(answers)
 
     return (
         <div className="question">

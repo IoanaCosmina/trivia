@@ -1,15 +1,13 @@
 import React from 'react';
 import categories from '../categories';
 
-function Category() {
+function Category({ category, chooseCategory }) {
     return (
         <div className="category">
             <p>Select Category</p>
-            <select>
+            <select value={category} onChange={e => chooseCategory(e.target.value)}>
                 {categories.map((category, index) => (
-                    <option key={index} value={category.id}>
-                        {category.name}
-                    </option>
+                    <option key={index} value={category.id} dangerouslySetInnerHTML={{ __html: category.name }} />
                 ))}
             </select>
         </div>
