@@ -19,9 +19,9 @@ body {
 }
 
 .app {
-  max-width: 500px;
   padding-bottom: 30px;
   padding-top: 30px;
+  margin: 0 auto;
 }
 
 /* header section ---------------------- */
@@ -32,11 +32,12 @@ body {
   margin-bottom: 15px;
 }
 
-.category {
-  max-width: 60%;
+.category,
+.difficulty {
+  padding-right: 10px;
 }
 
-.category select {
+.question-header select {
   border-color: #dbdbdb;
   border-radius: 4px;
   color: #363636;
@@ -47,7 +48,7 @@ body {
   cursor: pointer;
 }
 
-.category p {
+.question-header p {
   font-size: 16px;
   padding-left: 6px;
   margin: 0;
@@ -152,8 +153,7 @@ body {
   border-radius: 10px;
   padding: 2.5rem;
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
-  min-width: 500px;
-  max-width: 90%;
+  min-width: 650px;
   min-height: 350px;
   display: flex;
   align-items: center;

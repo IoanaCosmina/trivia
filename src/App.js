@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
 import './App.css';
 import Category from './components/Category';
+import Difficulty from './components/Difficulty';
 import Score from './components/Score';
 import Question from './components/Question';
 import Result from './components/Result';
 import useTrivia from './useTrivia';
 
 function App() {
-  const { question, getQuestion, category, setCategory } = useTrivia();
+  const { question, getQuestion, category, setCategory, difficulty, setDifficulty } = useTrivia();
   const [isCorrect, setIsCorrect] = useState(null);
 
   function handleAnswer(answer) {
@@ -26,6 +27,7 @@ function App() {
         <Result isCorrect={isCorrect} question={question} getQuestion={handleNextQuestion} />}
       <div className="question-header">
         <Category category={category} chooseCategory={setCategory} />
+        <Difficulty difficulty={difficulty} chooseDifficulty={setDifficulty} />
         <Score isCorrect={isCorrect} />
       </div>
       <div className="question-main">
