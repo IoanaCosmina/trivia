@@ -6,6 +6,6 @@ You can visit the GitHub project page [here](https://ioanacosmina.github.io/triv
 
 ## Improvement ideas
 
-- change difficulty
+✅ change difficulty
 - avoid repeating questions
 - keep a highscore
