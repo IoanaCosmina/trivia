@@ -1,47 +1,39 @@
-import React, { useEffect, useState, useCallback } from 'react';
+import React, { useState } from 'react';
 import './App.css';
 import Category from './components/Category';
 import Score from './components/Score';
 import Question from './components/Question';
 import Result from './components/Result';
+import useTrivia from './useTrivia';
 
 function App() {
-  const [question, setQuestion] = useState(null);
-  const [selectedCategory, setSelectedCategory] = useState('any');
+  const { question, getQuestion, category, setCategory } = useTrivia();
   const [isCorrect, setIsCorrect] = useState(null);
-
-  const getQuestion = useCallback(() => {
-    setIsCorrect(null);
-
-    let url = 'https://opentdb.com/api.php?amount=1';
-    if (selectedCategory !== 'any') url += `&category=${selectedCategory}`;
-
-    fetch(url)
-      .then(res => res.json())
-      .then((data) => setQuestion(data.results[0]));
-  }, [selectedCategory]);
-
-  useEffect(() => {
-    getQuestion();
-  }, [getQuestion, selectedCategory]);
 
   function handleAnswer(answer) {
     const isAnswerCorrect = answer === question.correct_answer;
     setIsCorrect(isAnswerCorrect);
   }
 
+  function handleNextQuestion() {
+    setIsCorrect(null);
+    getQuestion();
+  }
+
   return (
     <div className="app">
-      {isCorrect !== null && <Result isCorrect={isCorrect} question={question} getQuestion={getQuestion} />}
+      {isCorrect !== null &&
+        <Result isCorrect={isCorrect} question={question} getQuestion={handleNextQuestion} />}
       <div className="question-header">
-        <Category category={selectedCategory} chooseCategory={setSelectedCategory} />
+        <Category category={category} chooseCategory={setCategory} />
         <Score isCorrect={isCorrect} />
       </div>
       <div className="question-main">
-        {question && <Question question={question} handleAnswer={handleAnswer} />}
+        {question &&
+          <Question question={question} handleAnswer={handleAnswer} />}
       </div>
       <div className="question-footer">
-        <button onClick={getQuestion}>Next question</button>
+        <button onClick={handleNextQuestion}>Next question</button>
       </div>
     </div>
   );
