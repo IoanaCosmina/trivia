@@ -35,7 +35,7 @@ function App() {
       {isCorrect !== null && <Result isCorrect={isCorrect} question={question} getQuestion={getQuestion} />}
       <div className="question-header">
         <Category category={selectedCategory} chooseCategory={setSelectedCategory} />
-        <Score />
+        <Score isCorrect={isCorrect} />
       </div>
       <div className="question-main">
         {question && <Question question={question} handleAnswer={handleAnswer} />}
